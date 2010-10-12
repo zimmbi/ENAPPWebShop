@@ -45,7 +45,7 @@ public class ProductBean implements Serializable {
 
     public String saveProduct() {
         productSession.mergeProduct(product);
-        return null;
+        return "SAVED";
     }
 
     public String select(Product p) {
