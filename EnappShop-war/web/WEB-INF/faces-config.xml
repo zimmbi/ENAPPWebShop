@@ -9,9 +9,17 @@
     <navigation-rule>
         <from-view-id>/product/list.xhtml</from-view-id>
         <navigation-case>
-            <redirect/>
             <from-outcome>DETAILS</from-outcome>
             <to-view-id>/product/edit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/product/edit.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>SAVED</from-outcome>
+            <to-view-id>/product/list.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 </faces-config>

@@ -37,7 +37,7 @@ public class ProductBean implements Serializable {
         return null;
     }
 
-    public Product newProduct() {
+    public Product getNewProduct() {
         Product p = new Product();
         this.product = p;
         return p;
