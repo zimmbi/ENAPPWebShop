@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/templates/tie.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="pageTitle">Login</ui:define>
+    <ui:define name="content">
+        <f:view>
+            <h:form>
+                <h:outputLabel value="Username:"/>
+                <h:inputText value="#{customer.login.username}"/>
+                <br/>
+                <h:outputLabel value="Password:"/>
+                <h:inputSecret value="#{customer.login.password}"/>
+                <br />
+                <h:commandButton action="#{customer.login}" value="Login"/>
+            </h:form>
+        </f:view>
+        <h:outputLabel value="#{customer.login.customer.name}"/>
+    </ui:define>
+</ui:composition>
