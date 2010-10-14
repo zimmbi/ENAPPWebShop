@@ -7,19 +7,29 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <navigation-rule>
-        <from-view-id>/product/list.xhtml</from-view-id>
+        <from-view-id>/CustomerList.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>DETAILS</from-outcome>
-            <to-view-id>/product/edit.xhtml</to-view-id>
+            <to-view-id>/CustomerDetails.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>TEST</from-outcome>
+            <to-view-id>/Test.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/product/edit.xhtml</from-view-id>
+        <from-view-id>/CustomerDetails.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>SAVED</from-outcome>
-            <to-view-id>/product/list.xhtml</to-view-id>
+            <from-outcome>LIST</from-outcome>
+            <to-view-id>/CustomerList.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>test</managed-bean-name>
+        <managed-bean-class>ch.hslu.enappwebshop.web.TestBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

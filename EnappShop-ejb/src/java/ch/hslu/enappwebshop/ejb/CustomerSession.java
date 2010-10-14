@@ -54,6 +54,20 @@ public class CustomerSession implements CustomerSessionLocal {
         q.setParameter("customerid", customer.getId());
         return q.getResultList();
     }
+
+    @Override
+    public Customer saveCustomer(Customer customer) {
+        return em.merge(customer);
+    }
+
+    @Override
+    public Customer verifyLogin(String username, String password) {
+        Query q = em.createNamedQuery("Customer.findByUsernameAndPassword");
+        q.setParameter("username", username);
+        q.setParameter("password", password);
+        List<Customer> list = q.getResultList();
+        return list.isEmpty() ? null : list.get(0);
+    }
     
     
 }

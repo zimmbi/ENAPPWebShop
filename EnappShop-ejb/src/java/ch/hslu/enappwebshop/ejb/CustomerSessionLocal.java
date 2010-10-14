@@ -24,6 +24,8 @@ public interface CustomerSessionLocal {
     public Customer getCustomer(Integer id);
     public List<Purchaseitem> getPurchaseItems(Purchase purchase);
     public List<Purchase> getPurchases(Customer customer);
+    public Customer saveCustomer(Customer customer);
+    public Customer verifyLogin(String username, String password);
     
     
 }
