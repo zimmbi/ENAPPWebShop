@@ -36,25 +36,14 @@ public class CustomerBean implements Serializable {
     }
 
     public void select(Customer customer) {
-//        this.customer = customer;
-//        return null;
     }
 
     public String login() {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        String username = context.getExternalContext().getRequestParameterMap().get("login:username");
-//        String password = context.getExternalContext().getRequestParameterMap().get("login:password");
         login.setCustomer(customerSession.verifyLogin(login.getUsername(), login.getPassword()));
-
         return null;
     }
 
-//    public Customer getDetails() {
-//        return customer;
-//    }
     public String saveCustomer() {
-//        customer = customerSession.saveCustomer(customer);
-//        return null;
         return "TEST";
     }
 

@@ -7,7 +7,6 @@ package ch.hslu.enappwebshop.ejb;
 import ch.hslu.enappwebshop.entities.Product;
 import ch.hslu.enappwebshop.entities.Purchase;
 import ch.hslu.enappwebshop.entities.Purchaseitem;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +38,6 @@ public class ProductSession implements ProductSessionLocal {
         return q.getResultList();
     }
 
-    
     @Override
     public Product getProduct(Integer id) {
         Query q = em.createNamedQuery("Product.findById");
@@ -54,7 +52,7 @@ public class ProductSession implements ProductSessionLocal {
 
     @Override
     public void addToCart(Product product) {
-        if(!cart.containsKey(product)) {
+        if (!cart.containsKey(product)) {
             Purchaseitem item = new Purchaseitem();
             item.setProductid(product.getId());
             cart.put(product, item);
@@ -71,6 +69,16 @@ public class ProductSession implements ProductSessionLocal {
         return purchase;
     }
 
-    
+    @Override
+    public void checkout() {
+        persist(purchase);
+        for (Purchaseitem pi : cart.values()) {
+            persist(pi);
+        }
+    }
 
+    @Override
+    public void removeFromCart(Product product) {
+        cart.remove(product);
+    }
 }

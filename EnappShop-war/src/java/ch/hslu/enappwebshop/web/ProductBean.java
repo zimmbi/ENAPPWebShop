@@ -66,4 +66,10 @@ public class ProductBean implements Serializable {
     public void addToCart(Product product) {
         productSession.addToCart(product);
     }
+
+    public void removeFromCart(Product product) {
+        productSession.removeFromCart(product);
+    }
+
+    
 }
