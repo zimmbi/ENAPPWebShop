@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ch.hslu.enappwebshop.entities;
 
 import java.io.Serializable;
@@ -21,7 +16,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author zimmbi
+ * @author Martin Zimmermann
  */
 @Entity
 @Table(name = "purchase")

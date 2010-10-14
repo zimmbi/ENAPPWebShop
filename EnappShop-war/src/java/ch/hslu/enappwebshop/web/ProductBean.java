@@ -6,7 +6,6 @@ package ch.hslu.enappwebshop.web;
 
 import ch.hslu.enappwebshop.ejb.ProductSessionLocal;
 import ch.hslu.enappwebshop.entities.Product;
-import ch.hslu.enappwebshop.entities.Purchaseitem;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +60,10 @@ public class ProductBean implements Serializable {
 
     public List<Product> getCartProducts() {
         return new ArrayList(productSession.getCart().keySet());
+    }
+
+    public Long getQuantity(Product product) {
+        return productSession.getCart().get(product).getQuantity();
     }
 
     public void addToCart(Product product) {

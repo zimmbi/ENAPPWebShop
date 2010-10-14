@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.hslu.enappwebshop.ejb;
 
 import ch.hslu.enappwebshop.entities.Customer;
