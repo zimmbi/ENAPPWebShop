@@ -10,15 +10,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author zimmbi
  */
-@ManagedBean(name = "product")
+@Named("product")
 @SessionScoped
 public class ProductBean implements Serializable {
 
@@ -26,8 +27,8 @@ public class ProductBean implements Serializable {
     private ProductSessionLocal productSession;
     private Product product;
 
-//    @ManagedProperty(name="customer", value="#{customer}")
-//    private CustomerBean customer;
+    @Inject
+    private CustomerBean customer;
 
     /** Creates a new instance of ProductBean */
     public ProductBean() {
@@ -78,7 +79,15 @@ public class ProductBean implements Serializable {
     }
 
     public void checkout() {
-        productSession.checkout();
+        productSession.checkout(customer.getLogin().getCustomer());
+    }
+
+    public void increase(Product product) {
+        productSession.increase(product);
+    }
+
+    public void decrease(Product product) {
+        productSession.decrease(product);
     }
 
 

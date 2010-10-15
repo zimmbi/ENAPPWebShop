@@ -4,6 +4,7 @@
  */
 package ch.hslu.enappwebshop.ejb;
 
+import ch.hslu.enappwebshop.entities.Customer;
 import ch.hslu.enappwebshop.entities.Product;
 import ch.hslu.enappwebshop.entities.Purchase;
 import ch.hslu.enappwebshop.entities.Purchaseitem;
@@ -61,8 +62,7 @@ public class ProductSession implements ProductSessionLocal {
             item.setUnitprice(product.getUnitprice());
             cart.put(product, item);
         } else {
-            Purchaseitem p = cart.get(product);
-            p.setQuantity(p.getQuantity() + 1L);
+            increase(product);
         }
     }
 
@@ -77,7 +77,8 @@ public class ProductSession implements ProductSessionLocal {
     }
 
     @Override
-    public void checkout() {
+    public void checkout(Customer customer) {
+        purchase.setCustomerid(customer.getId());
         purchase.setDatetime(new Date());
         purchase.setStatus("coming soon");
         purchase = em.merge(purchase);
@@ -94,4 +95,21 @@ public class ProductSession implements ProductSessionLocal {
     public void removeFromCart(Product product) {
         cart.remove(product);
     }
+
+    @Override
+    public void increase(Product product) {
+        Purchaseitem p = cart.get(product);
+        p.setQuantity(p.getQuantity() + 1L);
+    }
+
+    @Override
+    public void decrease(Product product) {
+        Purchaseitem p = cart.get(product);
+        p.setQuantity(p.getQuantity() - 1L);
+        if (p.getQuantity() < 1) {
+            cart.remove(product);
+        }
+    }
+
+
 }

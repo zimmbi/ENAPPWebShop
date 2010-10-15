@@ -8,7 +8,7 @@
     <ui:define name="pageTitle">Login</ui:define>
     <ui:define name="subMenu">
         <c:if test="#{!customer.loggedIn}">
-            <a href="#">Login</a> | <a href="#">Create Account</a>
+            <a href="Login.xhtml">Login</a> | <a href="CreateAccount.xhtml">Create Account</a>
         </c:if>
         <c:if test="#{customer.loggedIn}">
             <a href="#">Logout</a> | <a href="#">Show previous purchases</a>
@@ -17,7 +17,7 @@
     </ui:define>
     <ui:define name="content">
         <f:view>
-            <h:form rendered="#{!customer.loggedIn}">
+            <h:form rendered="#{!customer.loggedIn}" styleClass="hor-minimalist-a">
                 <h:outputLabel value="Username:"/>
                 <h:inputText value="#{customer.login.username}"/>
                 <br/>

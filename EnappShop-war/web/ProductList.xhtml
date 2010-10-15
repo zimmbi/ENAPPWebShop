@@ -7,12 +7,9 @@
 
     <ui:define name="pageTitle">Products</ui:define>
     <ui:define name="content">
-        <h:outputLabel value="Logged in as: " rendered="#{customer.loggedIn}"/>
-        <h:outputLabel value="#{customer.login.customer.name}" rendered="#{customer.loggedIn}"/>
         <f:view>
             <h:form id="products">
-                <h1 class="titletext"><h:outputText value="List"/></h1>
-                <h:dataTable value="#{product.products}" var="item">
+                <h:dataTable value="#{product.products}" var="item" styleClass="hor-minimalist-a">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Id"/>
@@ -31,12 +28,12 @@
                         </f:facet>
                         <h:outputText value="#{item.description}"/>
                     </h:column>
-                    <h:column>
+<!--                    <h:column>
                         <f:facet name="header">
                             <h:outputText value="Mediapath"/>
                         </f:facet>
                         <h:outputText value="#{item.mediapath}"/>
-                    </h:column>
+                    </h:column>-->
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Unitprice"/>
@@ -61,31 +58,31 @@
         <f:view>
             <h:form id="cart" rendered="#{customer.loggedIn}">
                 <h1 class="titletext"><h:outputText value="Cart"/></h1>
-                <h:dataTable value="#{product.cartProducts}" var="item">
-                    <h:column>
+                <h:dataTable value="#{product.cartProducts}" var="item" styleClass="hor-minimalist-a">
+<!--                    <h:column>
                         <f:facet name="header">
                             <h:outputText value="Id"/>
                         </f:facet>
                         <h:outputText value="#{item.id}"/>
-                    </h:column>
+                    </h:column>-->
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Name"/>
                         </f:facet>
                         <h:outputText value="#{item.name}"/>
                     </h:column>
-                    <h:column>
+<!--                    <h:column>
                         <f:facet name="header">
                             <h:outputText value="Description"/>
                         </f:facet>
                         <h:outputText value="#{item.description}"/>
-                    </h:column>
-                    <h:column>
+                    </h:column>-->
+<!--                    <h:column>
                         <f:facet name="header">
                             <h:outputText value="Mediapath"/>
                         </f:facet>
                         <h:outputText value="#{item.mediapath}"/>
-                    </h:column>
+                    </h:column>-->
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Unitprice"/>
@@ -97,6 +94,14 @@
                             <h:outputText value="Quantity"/>
                         </f:facet>
                         <h:outputText value="#{product.showQuantity(item)}"/>
+                    </h:column>
+                    <h:column>
+                        <h:commandLink action="#{product.increase(item)}" value="+" styleClass="obenunten">
+                            <f:ajax render=":cart"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{product.decrease(item)}" value="-" styleClass="obenunten">
+                            <f:ajax render=":cart"/>
+                        </h:commandLink>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
