@@ -94,6 +94,10 @@ body {
     text-decoration:underline;
 }
 
+table {
+    width: 100%;
+}
+
 table, td, th
 {
     border:1px solid black;

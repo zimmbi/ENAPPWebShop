@@ -26,6 +26,9 @@ public class ProductBean implements Serializable {
     private ProductSessionLocal productSession;
     private Product product;
 
+//    @ManagedProperty(name="customer", value="#{customer}")
+//    private CustomerBean customer;
+
     /** Creates a new instance of ProductBean */
     public ProductBean() {
     }
@@ -62,7 +65,7 @@ public class ProductBean implements Serializable {
         return new ArrayList(productSession.getCart().keySet());
     }
 
-    public Long getQuantity(Product product) {
+    public Long showQuantity(Product product) {
         return productSession.getCart().get(product).getQuantity();
     }
 
@@ -73,6 +76,11 @@ public class ProductBean implements Serializable {
     public void removeFromCart(Product product) {
         productSession.removeFromCart(product);
     }
+
+    public void checkout() {
+        productSession.checkout();
+    }
+
 
     
 }

@@ -7,6 +7,7 @@ package ch.hslu.enappwebshop.ejb;
 import ch.hslu.enappwebshop.entities.Product;
 import ch.hslu.enappwebshop.entities.Purchase;
 import ch.hslu.enappwebshop.entities.Purchaseitem;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class ProductSession implements ProductSessionLocal {
 
     @PersistenceContext(unitName = "EnappShop-ejbPU")
     private EntityManager em;
-    private Purchase purchase;
+    private Purchase purchase = new Purchase();
     private Map<Product, Purchaseitem> cart = new HashMap<Product, Purchaseitem>();
 
     @Override
@@ -55,7 +56,13 @@ public class ProductSession implements ProductSessionLocal {
         if (!cart.containsKey(product)) {
             Purchaseitem item = new Purchaseitem();
             item.setProductid(product.getId());
+            item.setDescription(product.getDescription());
+            item.setQuantity(1L);
+            item.setUnitprice(product.getUnitprice());
             cart.put(product, item);
+        } else {
+            Purchaseitem p = cart.get(product);
+            p.setQuantity(p.getQuantity() + 1L);
         }
     }
 
@@ -71,10 +78,16 @@ public class ProductSession implements ProductSessionLocal {
 
     @Override
     public void checkout() {
-        persist(purchase);
+        purchase.setDatetime(new Date());
+        purchase.setStatus("coming soon");
+        purchase = em.merge(purchase);
+        em.flush();
         for (Purchaseitem pi : cart.values()) {
-            persist(pi);
+            pi.setPurchaseid(purchase.getId());
+            em.merge(pi);
         }
+        purchase = new Purchase();
+        cart.clear();
     }
 
     @Override

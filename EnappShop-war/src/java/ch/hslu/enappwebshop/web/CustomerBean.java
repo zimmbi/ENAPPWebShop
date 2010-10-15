@@ -10,9 +10,15 @@ import ch.hslu.enappwebshop.entities.Purchase;
 import ch.hslu.enappwebshop.entities.Purchaseitem;
 import java.io.Serializable;
 import java.util.List;
+
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 
 /**
  *
@@ -29,7 +35,6 @@ public class CustomerBean implements Serializable {
     public Login getLogin() {
         return login;
     }
-
 
     /** Creates a new instance of CustomerBean */
     public CustomerBean() {
@@ -57,5 +62,25 @@ public class CustomerBean implements Serializable {
 
     public List<Purchase> getPurchases(Customer customer) {
         return customerSession.getPurchases(customer);
+    }
+
+    public boolean isLoggedIn() {
+        return login.getCustomer() == null ? false : true;
+    }
+    private Validator myValidator = new Validator() {
+
+        @Override
+        public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+            FacesMessage message = new FacesMessage();
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            message.setSummary("Email is not valid.");
+            message.setDetail("Email is not valid.");
+            context.addMessage("testForm:test", message);
+            throw new ValidatorException(message);
+        }
+    };
+
+    public Validator getMyValidator() {
+        return myValidator;
     }
 }

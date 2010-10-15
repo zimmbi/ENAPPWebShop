@@ -2,12 +2,22 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/resources/templates/tie.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="pageTitle">Login</ui:define>
+    <ui:define name="subMenu">
+        <c:if test="#{!customer.loggedIn}">
+            <a href="#">Login</a> | <a href="#">Create Account</a>
+        </c:if>
+        <c:if test="#{customer.loggedIn}">
+            <a href="#">Logout</a> | <a href="#">Show previous purchases</a>
+        </c:if>
+
+    </ui:define>
     <ui:define name="content">
         <f:view>
-            <h:form>
+            <h:form rendered="#{!customer.loggedIn}">
                 <h:outputLabel value="Username:"/>
                 <h:inputText value="#{customer.login.username}"/>
                 <br/>
@@ -17,6 +27,6 @@
                 <h:commandButton action="#{customer.login}" value="Login"/>
             </h:form>
         </f:view>
-        <h:outputLabel value="#{customer.login.customer.name}"/>
+        <h:outputLabel value="#{customer.login.customer.name}" rendered="#{customer.loggedIn}"/>
     </ui:define>
 </ui:composition>

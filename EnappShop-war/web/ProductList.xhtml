@@ -2,15 +2,16 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/resources/templates/tie.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="pageTitle">Products</ui:define>
     <ui:define name="content">
-        <h:outputLabel value="Logged in as: "/>
-        <h:outputLabel value="#{customer.login.customer.name}"/>
+        <h:outputLabel value="Logged in as: " rendered="#{customer.loggedIn}"/>
+        <h:outputLabel value="#{customer.login.customer.name}" rendered="#{customer.loggedIn}"/>
         <f:view>
             <h:form id="products">
-                <h1><h:outputText value="List"/></h1>
+                <h1 class="titletext"><h:outputText value="List"/></h1>
                 <h:dataTable value="#{product.products}" var="item">
                     <h:column>
                         <f:facet name="header">
@@ -42,7 +43,8 @@
                         </f:facet>
                         <h:outputText value="#{item.unitprice}"/>
                     </h:column>
-                    <h:column>
+
+                    <h:column rendered="#{customer.loggedIn}">
                         <f:facet name="header">
                             <h:outputText value="Buy"/>
                         </f:facet>
@@ -50,14 +52,15 @@
                             <f:ajax render=":products :cart"/>
                         </h:commandButton>
                     </h:column>
+
                 </h:dataTable>
             </h:form>
         </f:view>
 
 
         <f:view>
-            <h:form id="cart">
-                <h1><h:outputText value="Cart"/></h1>
+            <h:form id="cart" rendered="#{customer.loggedIn}">
+                <h1 class="titletext"><h:outputText value="Cart"/></h1>
                 <h:dataTable value="#{product.cartProducts}" var="item">
                     <h:column>
                         <f:facet name="header">
@@ -91,6 +94,12 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
+                            <h:outputText value="Quantity"/>
+                        </f:facet>
+                        <h:outputText value="#{product.showQuantity(item)}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
                             <h:outputText value="Remove"/>
                         </f:facet>
                         <h:commandButton value="Remove from cart" action="#{product.removeFromCart(item)}">
@@ -100,7 +109,11 @@
                 </h:dataTable>
             </h:form>
         </f:view>
-
+        <h:form rendered="#{customer.loggedIn}">
+            <h:commandButton action="#{product.checkout}" value="Checkout">
+                <f:ajax render=":products :cart"/>
+            </h:commandButton>
+        </h:form>
 
     </ui:define>
 </ui:composition>
