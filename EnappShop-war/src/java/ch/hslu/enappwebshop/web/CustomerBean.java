@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 
@@ -20,7 +19,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -34,18 +32,6 @@ public class CustomerBean implements Serializable {
     @EJB
     private CustomerSessionLocal customerSession;
     private Login login = new Login();
-//    @Inject @RequestScoped
-//    private String test;
-
-//    public String getTest() {
-//        return test;
-//    }
-//
-//    public void setTest(String test) {
-//        this.test = test;
-//    }
-
-
 
     public Login getLogin() {
         return login;
