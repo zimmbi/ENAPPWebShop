@@ -14,6 +14,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -29,13 +30,17 @@ public class CreateAccount implements Serializable {
     private CustomerSessionLocal customerSession;
     @Inject
     private CustomerBean customerBean;
-    private Customer customer = new Customer();
+    private Customer customer;
+    private String tempPw;
 
     /** Creates a new instance of CreateAccount */
     public CreateAccount() {
     }
 
     public Customer getCustomer() {
+        if (customer == null) {
+            customer = new Customer();
+        }
         return customer;
     }
 
@@ -48,19 +53,15 @@ public class CreateAccount implements Serializable {
         customerBean.getLogin().setCustomer(customer);
         return "CREATED";
     }
-    private Validator myValidator = new Validator() {
 
-        @Override
-        public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-            System.out.println(customer.getPassword());
-            if (((String) value).equals(customer.getPassword())) {
-                return;
-            }
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwort not matching", "Passwort not matching"));
+    public void validatePw(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        if(component.getId().equals("password")) {
+            tempPw = (String)value;
+            return;
         }
-    };
-
-    public Validator getMyValidator() {
-        return myValidator;
+        if (((String) value).equals(tempPw)) {
+            return;
+        }
+        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwort not matching", "Passwort not matching"));
     }
 }

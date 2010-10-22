@@ -20,13 +20,14 @@
     <ui:define name="content">
         <f:view>
             <h:form rendered="#{!customer.loggedIn}" styleClass="hor-minimalist-a">
-                <h:outputLabel value="Username:"/>
-                <h:inputText value="#{customer.login.username}"/>
-                <br/>
-                <h:outputLabel value="Password:"/>
-                <h:inputSecret value="#{customer.login.password}"/>
-                <br />
-                <h:commandButton action="#{customer.login}" value="Login"/>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Username:"/>
+                    <h:inputText value="#{customer.login.username}"/>
+                    <h:outputLabel value="Password:"/>
+                    <h:inputSecret value="#{customer.login.password}"/>
+                    <h:outputText/>
+                    <h:commandButton action="#{customer.login}" value="Login"/>
+                </h:panelGrid>
             </h:form>
         </f:view>
 
@@ -40,7 +41,7 @@
                         <h:outputLabel value="Username:" for="username" />
                         <h:inputText readonly="true" id="username" value="#{customer.loggedInCustomer.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
                         <h:outputLabel value="Password:" for="password" />
-                        <h:inputSecret id="password" value="#{customer.loggedInCustomer.password}" title="Password" />
+                        <h:inputSecret id="password" value="#{customer.tempPw}" validator="#{customer.validatePw}" title="Password" />
                         <h:outputLabel value="Name:" for="name" />
                         <h:inputText id="name" value="#{customer.loggedInCustomer.name}" title="Name" />
                         <h:outputLabel value="Address:" for="address" />
@@ -48,6 +49,7 @@
                         <h:outputLabel value="Email:" for="email" />
                         <h:inputText id="email" value="#{customer.loggedInCustomer.email}" title="Email" />
                     </h:panelGrid>
+                    <h:commandButton action="#{customer.saveCustomer}" value="Save" />
                 </h:form>
             </f:view>
         </c:if>

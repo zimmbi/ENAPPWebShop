@@ -130,4 +130,6 @@ public class Customer implements Serializable {
         return "ch.hslu.enappwebshop.entities.Customer[id=" + id + "]";
     }
 
+    
+
 }

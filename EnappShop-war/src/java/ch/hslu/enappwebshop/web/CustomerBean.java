@@ -13,6 +13,10 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import javax.inject.Named;
 
@@ -29,6 +33,15 @@ public class CustomerBean implements Serializable {
     private Login login = new Login();
     private String test;
     private int purchaseId;
+    private String tempPw;
+
+    public String getTempPw() {
+        return tempPw;
+    }
+
+    public void setTempPw(String tempPw) {
+        this.tempPw = tempPw;
+    }
 
     public int getPurchaseId() {
         return purchaseId;
@@ -63,7 +76,12 @@ public class CustomerBean implements Serializable {
     }
 
     public String saveCustomer() {
-        return "TEST";
+        if (tempPw != null) {
+            login.getCustomer().setPassword(tempPw);
+            tempPw = null;
+        }
+        login.setCustomer(customerSession.saveCustomer(login.getCustomer()));
+        return "Login?faces-redirect=true";
     }
 
     public List<Customer> getCustomers() {
@@ -89,5 +107,12 @@ public class CustomerBean implements Serializable {
 
     public Customer getLoggedInCustomer() {
         return login.getCustomer();
+    }
+
+    public void validatePw(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        String pw = (String) value;
+        if (pw.length() > 0) {
+            tempPw = pw;
+        }
     }
 }
