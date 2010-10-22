@@ -45,13 +45,13 @@
                         <div class="titletext"><ui:insert name="pageTitle">Page</ui:insert></div>
                         <div class="bodytext" style="padding:12px;" align="justify">
                             <ui:insert name="content" id="contentArea">Default value for content</ui:insert>
-                            <h:messages globalOnly="true"/>
+                            <h:messages styleClass="msgStyle" globalOnly="true"/>
                         </div>
                     </div>
                 </div>
               
                 <div id="leftpanel">
-                    <div align="justify" class="graypanel">
+                    <div align="justify" class="graypanel" style="border-radius:5px;">
 
                         <span class="smalltitle">Twitter</span><br />
                         <c:forEach items="#{twitter.tweets}" var="tweet">
@@ -68,7 +68,7 @@
 
                     </div>
                 </div>
-                <div id="footer" class="smallgraytext">
+                <div id="footer" class="smallgraytext" style="border-radius:5px;">
                     <c:if test="#{customer.loggedIn}">
                         You are logged in as <h:outputText value="#{customer.login.customer.name}"/>
                     </c:if>

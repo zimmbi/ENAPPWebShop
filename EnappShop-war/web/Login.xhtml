@@ -15,19 +15,21 @@
                 <h:commandLink action="#{customer.logout}" value="Logout"/> | <a href="ListPurchases.xhtml">Show previous purchases</a>
             </h:form>
         </c:if>
-
     </ui:define>
     <ui:define name="content">
         <f:view>
-            <h:form rendered="#{!customer.loggedIn}" styleClass="hor-minimalist-a">
+            <h:form id="login" rendered="#{!customer.loggedIn}" styleClass="hor-minimalist-a">
+                <h:message styleClass="msgStyle" for="username"/>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Username:"/>
-                    <h:inputText value="#{customer.login.username}"/>
+                    <h:inputText id="username" value="#{customer.login.username}"/>
                     <h:outputLabel value="Password:"/>
                     <h:inputSecret value="#{customer.login.password}"/>
                     <h:outputText/>
-                    <h:commandButton action="#{customer.login}" value="Login"/>
                 </h:panelGrid>
+                <div class="buttons">
+                    <h:commandButton action="#{customer.login}" value="Login"/>
+                </div>
             </h:form>
         </f:view>
 
@@ -48,7 +50,9 @@
                         <h:outputLabel value="Email:" for="email" />
                         <h:inputText id="email" value="#{customer.loggedInCustomer.email}" title="Email" />
                     </h:panelGrid>
-                    <h:commandButton action="#{customer.saveCustomer}" value="Save" />
+                    <div class="buttons">
+                        <h:commandButton action="#{customer.saveCustomer}" value="Save" />
+                    </div>
                 </h:form>
             </f:view>
         </c:if>

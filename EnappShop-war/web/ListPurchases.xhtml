@@ -31,6 +31,16 @@
                         </f:facet>
                         <h:outputText value="#{item.status}"/>
                     </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Details"/>
+                        </f:facet>
+                        <div class="buttons">
+                            <h:outputLink value="PurchaseDetails.xhtml?id=#{item.id}">
+                                <h:outputText value="Get Details"/>
+                            </h:outputLink>
+                        </div>
+                    </h:column>
                 </h:dataTable>
             </h:form>
         </f:view>

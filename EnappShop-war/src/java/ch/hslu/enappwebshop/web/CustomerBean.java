@@ -13,6 +13,9 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 import javax.inject.Named;
 
@@ -68,11 +71,15 @@ public class CustomerBean implements Serializable {
 
     public String login() {
         login.setCustomer(customerSession.verifyLogin(login.getUsername(), login.getPassword()));
+        if (login.getCustomer() == null) {
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(FacesMessage.SEVERITY_INFO, "Wrong username/password", "Wrong username/password"));
+            return null;
+        }
         return "Login?faces-redirect=true";
     }
 
     public String saveCustomer() {
-        if (tempPw.length()>0) {
+        if (tempPw.length() > 0) {
             login.getCustomer().setPassword(tempPw);
         }
         login.setCustomer(customerSession.saveCustomer(login.getCustomer()));
@@ -103,5 +110,4 @@ public class CustomerBean implements Serializable {
     public Customer getLoggedInCustomer() {
         return login.getCustomer();
     }
-
 }
