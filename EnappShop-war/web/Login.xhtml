@@ -33,15 +33,14 @@
 
         <c:if test="#{customer.loggedIn}">
             <f:view>
-                <h:form>
-                    <h1><h:outputText value="Create/Edit"/></h1>
+                <h:form styleClass="hor-minimalist-a">
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Id:" for="id" />
                         <h:inputText readonly="true" id="id" value="#{customer.loggedInCustomer.id}" title="Id" required="true" requiredMessage="The Id field is required."/>
                         <h:outputLabel value="Username:" for="username" />
                         <h:inputText readonly="true" id="username" value="#{customer.loggedInCustomer.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
                         <h:outputLabel value="Password:" for="password" />
-                        <h:inputSecret id="password" value="#{customer.tempPw}" validator="#{customer.validatePw}" title="Password" />
+                        <h:inputSecret id="password" value="#{customer.tempPw}" title="Password" />
                         <h:outputLabel value="Name:" for="name" />
                         <h:inputText id="name" value="#{customer.loggedInCustomer.name}" title="Name" />
                         <h:outputLabel value="Address:" for="address" />

@@ -13,10 +13,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 
 import javax.inject.Named;
 
@@ -76,9 +72,8 @@ public class CustomerBean implements Serializable {
     }
 
     public String saveCustomer() {
-        if (tempPw != null) {
+        if (tempPw.length()>0) {
             login.getCustomer().setPassword(tempPw);
-            tempPw = null;
         }
         login.setCustomer(customerSession.saveCustomer(login.getCustomer()));
         return "Login?faces-redirect=true";
@@ -109,10 +104,4 @@ public class CustomerBean implements Serializable {
         return login.getCustomer();
     }
 
-    public void validatePw(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        String pw = (String) value;
-        if (pw.length() > 0) {
-            tempPw = pw;
-        }
-    }
 }
