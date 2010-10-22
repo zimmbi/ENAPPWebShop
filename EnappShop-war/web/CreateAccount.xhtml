@@ -19,20 +19,26 @@
     <ui:define name="content">
 
         <f:view>
-            <h:form styleClass="hor-minimalist-a">
-                <h:panelGrid columns="2">
+            <h:form id="createForm" styleClass="hor-minimalist-a">
+                <h:panelGrid columns="3">
                     <h:outputLabel value="Username:" for="username" />
                     <h:inputText id="username" value="#{createAccount.customer.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                    <h:message for="username"/>
                     <h:outputLabel value="Password:" for="password" />
                     <h:inputText id="password" value="#{createAccount.customer.password}" title="Password" />
+                    <h:message for="password"/>
                     <h:outputLabel value="Password again:" for="password2" />
-                    <h:inputText id="password2" title="Password again" />
+                    <h:inputText id="password2" validator="#{createAccount.myValidator.validate}" title="Password again" />
+                    <h:message for="password2"/>
                     <h:outputLabel value="Name:" for="name" />
                     <h:inputText id="name" value="#{createAccount.customer.name}" title="Name" />
+                    <h:message for="name"/>
                     <h:outputLabel value="Address:" for="address" />
                     <h:inputText id="address" value="#{createAccount.customer.address}" title="Address" />
+                    <h:message for="address"/>
                     <h:outputLabel value="Email:" for="email" />
                     <h:inputText id="email" value="#{createAccount.customer.email}" title="Email" />
+                    <h:message for="email"/>
                 </h:panelGrid>
                 <h:commandButton action="#{createAccount.create}" value="Create" />
             </h:form>

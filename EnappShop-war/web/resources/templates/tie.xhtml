@@ -32,7 +32,7 @@
                 </div>
                 <div id="menu">
                     <div align="right" class="smallwhitetext" style="padding:9px;">
-                        <a href="Main.xhtml">Home</a> | <a href="#">About Us</a> | <a href="ProductList.xhtml">Products</a> | <a href="Login.xhtml">My Account</a> | <a href="#">Contact Us</a>
+                        <a href="Main.xhtml">Home</a> | <a href="ProductList.xhtml">Products</a> | <a href="Login.xhtml">My Account</a> | <a href="ContactUs.xhtml">Contact Us</a>
                     </div>
                 </div>
                 <div id="submenu">
@@ -43,7 +43,10 @@
                 <div id="contenttext">
                     <div style="padding:5px">
                         <div class="titletext"><ui:insert name="pageTitle">Page</ui:insert></div>
-                        <div class="bodytext" style="padding:12px;" align="justify"><ui:insert name="content" id="contentArea">Default value for content</ui:insert></div>
+                        <div class="bodytext" style="padding:12px;" align="justify">
+                            <ui:insert name="content" id="contentArea">Default value for content</ui:insert>
+                            <h:messages globalOnly="true"/>
+                        </div>
                     </div>
                 </div>
               

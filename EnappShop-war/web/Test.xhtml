@@ -4,12 +4,14 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
 
+    <f:metadata>
+        <f:viewParam name="test" value="#{customer.test}" />
+    </f:metadata>
+
     <ui:define name="pageTitle">Test</ui:define>
     <ui:define name="content">
 
-        <h:form id="testForm">
-            <h:inputText id="test" validator="#{customer.myValidator.validate}"/>
-        </h:form>
+        <h:outputText value="#{customer.test}"/>
 
     </ui:define>
 </ui:composition>

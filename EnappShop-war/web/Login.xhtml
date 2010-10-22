@@ -11,7 +11,9 @@
             <a href="Login.xhtml">Login</a> | <a href="CreateAccount.xhtml">Create Account</a>
         </c:if>
         <c:if test="#{customer.loggedIn}">
-            <a href="#">Logout</a> | <a href="#">Show previous purchases</a>
+            <h:form>
+                <h:commandLink action="#{customer.logout}" value="Logout"/> | <a href="ListPurchases.xhtml">Show previous purchases</a>
+            </h:form>
         </c:if>
 
     </ui:define>
@@ -27,6 +29,27 @@
                 <h:commandButton action="#{customer.login}" value="Login"/>
             </h:form>
         </f:view>
-        <h:outputLabel value="#{customer.login.customer.name}" rendered="#{customer.loggedIn}"/>
+
+        <c:if test="#{customer.loggedIn}">
+            <f:view>
+                <h:form>
+                    <h1><h:outputText value="Create/Edit"/></h1>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Id:" for="id" />
+                        <h:inputText readonly="true" id="id" value="#{customer.loggedInCustomer.id}" title="Id" required="true" requiredMessage="The Id field is required."/>
+                        <h:outputLabel value="Username:" for="username" />
+                        <h:inputText readonly="true" id="username" value="#{customer.loggedInCustomer.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                        <h:outputLabel value="Password:" for="password" />
+                        <h:inputSecret id="password" value="#{customer.loggedInCustomer.password}" title="Password" />
+                        <h:outputLabel value="Name:" for="name" />
+                        <h:inputText id="name" value="#{customer.loggedInCustomer.name}" title="Name" />
+                        <h:outputLabel value="Address:" for="address" />
+                        <h:inputText id="address" value="#{customer.loggedInCustomer.address}" title="Address" />
+                        <h:outputLabel value="Email:" for="email" />
+                        <h:inputText id="email" value="#{customer.loggedInCustomer.email}" title="Email" />
+                    </h:panelGrid>
+                </h:form>
+            </f:view>
+        </c:if>
     </ui:define>
 </ui:composition>

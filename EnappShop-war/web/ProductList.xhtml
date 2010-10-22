@@ -54,7 +54,9 @@
             </h:form>
         </f:view>
 
-
+        <c:if test="#{!customer.loggedIn}">
+            <h1>Please Login to buy some nice stuff!</h1>
+        </c:if>
         <f:view>
             <h:form id="cart" rendered="#{customer.loggedIn}">
                 <h1 class="titletext"><h:outputText value="Cart"/></h1>

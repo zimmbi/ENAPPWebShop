@@ -7,6 +7,8 @@ package ch.hslu.enappwebshop.ejb;
 
 import ch.hslu.enappwebshop.entities.Customer;
 import ch.hslu.enappwebshop.entities.Product;
+import ch.hslu.enappwebshop.entities.Purchase;
+import ch.hslu.enappwebshop.entities.Purchaseitem;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,9 +31,9 @@ public interface ProductSessionLocal {
 
     public void removeFromCart(Product product);
 
-    public java.util.Map<ch.hslu.enappwebshop.entities.Product, ch.hslu.enappwebshop.entities.Purchaseitem> getCart();
+    public java.util.Map<Product, Purchaseitem> getCart();
 
-    public ch.hslu.enappwebshop.entities.Purchase getPurchase();
+    public Purchase getPurchase();
 
     public void checkout(Customer customer);
 

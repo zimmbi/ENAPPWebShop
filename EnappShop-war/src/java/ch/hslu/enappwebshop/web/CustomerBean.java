@@ -13,12 +13,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 
 /**
@@ -32,6 +27,24 @@ public class CustomerBean implements Serializable {
     @EJB
     private CustomerSessionLocal customerSession;
     private Login login = new Login();
+    private String test;
+    private int purchaseId;
+
+    public int getPurchaseId() {
+        return purchaseId;
+    }
+
+    public void setPurchaseId(int purchaseId) {
+        this.purchaseId = purchaseId;
+    }
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
+    }
 
     public Login getLogin() {
         return login;
@@ -42,12 +55,11 @@ public class CustomerBean implements Serializable {
     }
 
     public void select(Customer customer) {
-        
     }
 
     public String login() {
         login.setCustomer(customerSession.verifyLogin(login.getUsername(), login.getPassword()));
-        return null;
+        return "Login?faces-redirect=true";
     }
 
     public String saveCustomer() {
@@ -58,8 +70,8 @@ public class CustomerBean implements Serializable {
         return customerSession.getCustomers();
     }
 
-    public List<Purchaseitem> getPurchaseItems(Purchase purchase) {
-        return customerSession.getPurchaseItems(purchase);
+    public List<Purchaseitem> getPurchaseItems() {
+        return customerSession.getPurchaseItems(purchaseId);
     }
 
     public List<Purchase> getPurchases() {
@@ -70,28 +82,12 @@ public class CustomerBean implements Serializable {
         return login.getCustomer() == null ? false : true;
     }
 
-    public void logout() {
+    public String logout() {
         login.setCustomer(null);
+        return "Login?faces-redirect=true";
     }
 
-    private Validator myValidator = new Validator() {
-
-        @Override
-        public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-            FacesMessage message = new FacesMessage();
-            message.setSeverity(FacesMessage.SEVERITY_ERROR);
-            message.setSummary("Email is not valid.");
-            message.setDetail("Email is not valid.");
-            context.addMessage("testForm:test", message);
-            throw new ValidatorException(message);
-        }
-    };
-
-    public Validator getMyValidator() {
-        return myValidator;
+    public Customer getLoggedInCustomer() {
+        return login.getCustomer();
     }
-
-
-
-
 }

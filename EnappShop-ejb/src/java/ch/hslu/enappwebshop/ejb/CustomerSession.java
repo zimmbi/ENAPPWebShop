@@ -38,9 +38,9 @@ public class CustomerSession implements CustomerSessionLocal {
     }
 
     @Override
-    public List<Purchaseitem> getPurchaseItems(Purchase purchase) {
+    public List<Purchaseitem> getPurchaseItems(int purchaseId) {
         Query q = em.createNamedQuery("Purchaseitem.findByPurchaseid");
-        q.setParameter("purchaseid", purchase.getId());
+        q.setParameter("purchaseid", purchaseId);
         return q.getResultList();
     }
 
