@@ -81,9 +81,11 @@ public class CustomerBean implements Serializable {
     public String saveCustomer() {
         if (tempPw.length() > 0) {
             login.getCustomer().setPassword(tempPw);
+            FacesContext.getCurrentInstance().addMessage("edit:password", new FacesMessage(FacesMessage.SEVERITY_INFO, "Password Changed", "Password Changed"));
         }
         login.setCustomer(customerSession.saveCustomer(login.getCustomer()));
-        return "Login?faces-redirect=true";
+//        return "Login?faces-redirect=true";
+        return null;
     }
 
     public List<Customer> getCustomers() {

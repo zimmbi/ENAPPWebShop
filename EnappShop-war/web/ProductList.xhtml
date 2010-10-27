@@ -120,13 +120,10 @@
                 </h:dataTable>
             </h:form>
         </f:view>
-        <h:form rendered="#{customer.loggedIn}">
-            <div class="buttons">
-                <h:commandButton action="#{product.checkout}" value="Checkout">
-                    <f:ajax render=":products :cart"/>
-                </h:commandButton>
-            </div>
-        </h:form>
+        <div class="buttons">
+            <a href="Checkout.xhtml">Checkout</a>
+        </div>
+
 
     </ui:define>
 </ui:composition>

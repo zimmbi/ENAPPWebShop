@@ -78,8 +78,9 @@ public class ProductBean implements Serializable {
         productSession.removeFromCart(product);
     }
 
-    public void checkout() {
+    public String checkout() {
         productSession.checkout(customer.getLogin().getCustomer());
+        return "THANKS";
     }
 
     public void increase(Product product) {

@@ -35,20 +35,26 @@
 
         <c:if test="#{customer.loggedIn}">
             <f:view>
-                <h:form styleClass="hor-minimalist-a">
-                    <h:panelGrid columns="2">
+                <h:form id="edit" styleClass="hor-minimalist-a">
+                    <h:panelGrid columns="3">
                         <h:outputLabel value="Id:" for="id" />
                         <h:inputText readonly="true" id="id" value="#{customer.loggedInCustomer.id}" title="Id" required="true" requiredMessage="The Id field is required."/>
+                        <h:outputText/>
                         <h:outputLabel value="Username:" for="username" />
                         <h:inputText readonly="true" id="username" value="#{customer.loggedInCustomer.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                        <h:outputText/>
                         <h:outputLabel value="Password:" for="password" />
                         <h:inputSecret id="password" value="#{customer.tempPw}" title="Password" />
+                        <h:message styleClass="msgStyle" for="password"/>
                         <h:outputLabel value="Name:" for="name" />
                         <h:inputText id="name" value="#{customer.loggedInCustomer.name}" title="Name" />
+                        <h:outputText/>
                         <h:outputLabel value="Address:" for="address" />
                         <h:inputText id="address" value="#{customer.loggedInCustomer.address}" title="Address" />
+                        <h:outputText/>
                         <h:outputLabel value="Email:" for="email" />
                         <h:inputText id="email" value="#{customer.loggedInCustomer.email}" title="Email" />
+                        <h:outputText/>
                     </h:panelGrid>
                     <div class="buttons">
                         <h:commandButton action="#{customer.saveCustomer}" value="Save" />
