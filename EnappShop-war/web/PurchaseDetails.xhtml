@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/templates/tie.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="pageTitle">Purchase Details</ui:define>
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{customer.purchaseId}"/>
+   </f:metadata>
+    
+    <ui:define name="content">
+        <f:view>
+            <h:form styleClass="hor-minimalist-a">
+                <h:dataTable value="#{customer.purchaseItems}" var="item">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Quantity"/>
+                        </f:facet>
+                        <h:outputText value="#{item.quantity}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Unitprice"/>
+                        </f:facet>
+                        <h:outputText value="#{item.unitprice}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Lineamount"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lineamount}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Description"/>
+                        </f:facet>
+                        <h:outputText value="#{item.description}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </f:view>
+
+
+    </ui:define>
+</ui:composition>

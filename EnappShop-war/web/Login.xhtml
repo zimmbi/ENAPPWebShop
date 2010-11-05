@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/templates/tie.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="pageTitle">Login</ui:define>
+    <ui:define name="subMenu">
+        <c:if test="#{!customer.loggedIn}">
+            <a href="Login.xhtml">Login</a> | <a href="CreateAccount.xhtml">Create Account</a>
+        </c:if>
+        <c:if test="#{customer.loggedIn}">
+            <h:form>
+                <h:commandLink action="#{customer.logout}" value="Logout"/> | <a href="ListPurchases.xhtml">Show previous purchases</a>
+            </h:form>
+        </c:if>
+    </ui:define>
+    <ui:define name="content">
+        <f:view>
+            <h:form id="login" rendered="#{!customer.loggedIn}" styleClass="hor-minimalist-a">
+                <h:message styleClass="msgStyle" for="username"/>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Username:"/>
+                    <h:inputText id="username" value="#{customer.login.username}"/>
+                    <h:outputLabel value="Password:"/>
+                    <h:inputSecret value="#{customer.login.password}"/>
+                    <h:outputText/>
+                </h:panelGrid>
+                <div class="buttons">
+                    <h:commandButton action="#{customer.login}" value="Login"/>
+                </div>
+            </h:form>
+        </f:view>
+
+        <c:if test="#{customer.loggedIn}">
+            <f:view>
+                <h:form id="edit" styleClass="hor-minimalist-a">
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="Id:" for="id" />
+                        <h:inputText readonly="true" id="id" value="#{customer.loggedInCustomer.id}" title="Id" required="true" requiredMessage="The Id field is required."/>
+                        <h:outputText/>
+                        <h:outputLabel value="Username:" for="username" />
+                        <h:inputText readonly="true" id="username" value="#{customer.loggedInCustomer.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                        <h:outputText/>
+                        <h:outputLabel value="Password:" for="password" />
+                        <h:inputSecret id="password" value="#{customer.tempPw}" title="Password" />
+                        <h:message styleClass="msgStyle" for="password"/>
+                        <h:outputLabel value="Name:" for="name" />
+                        <h:inputText id="name" value="#{customer.loggedInCustomer.name}" title="Name" />
+                        <h:outputText/>
+                        <h:outputLabel value="Address:" for="address" />
+                        <h:inputText id="address" value="#{customer.loggedInCustomer.address}" title="Address" />
+                        <h:outputText/>
+                        <h:outputLabel value="Email:" for="email" />
+                        <h:inputText id="email" value="#{customer.loggedInCustomer.email}" title="Email" />
+                        <h:outputText/>
+                    </h:panelGrid>
+                    <div class="buttons">
+                        <h:commandButton action="#{customer.saveCustomer}" value="Save" />
+                    </div>
+                </h:form>
+            </f:view>
+        </c:if>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/templates/tie.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="pageTitle">Create Account</ui:define>
+    <ui:define name="subMenu">
+        <c:if test="#{!customer.loggedIn}">
+            <a href="Login.xhtml">Login</a> | <a href="CreateAccount.xhtml">Create Account</a>
+        </c:if>
+        <c:if test="#{customer.loggedIn}">
+            <a href="#">Logout</a> | <a href="#">Show previous purchases</a>
+        </c:if>
+
+    </ui:define>
+
+    <ui:define name="content">
+
+        <f:view>
+            <h:form id="createForm" styleClass="hor-minimalist-a">
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="Username:" for="username" />
+                    <h:inputText id="username" value="#{createAccount.customer.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                    <h:message for="username"/>
+                    <h:outputLabel value="Password:" for="password" />
+                    <h:inputSecret id="password" validator="#{createAccount.validatePw}" required="true" requiredMessage="Put in some stuff!" value="#{createAccount.customer.password}" title="Password" />
+                    <h:message for="password"/>
+                    <h:outputLabel value="Password again:" for="password2" />
+                    <h:inputSecret id="password2" validator="#{createAccount.validatePw}" title="Password again" />
+                    <h:message for="password2"/>
+                    <h:outputLabel value="Name:" for="name" />
+                    <h:inputText id="name" value="#{createAccount.customer.name}" required="true" requiredMessage="Put in some stuff!" title="Name" />
+                    <h:message for="name"/>
+                    <h:outputLabel value="Address:" for="address" />
+                    <h:inputText id="address" value="#{createAccount.customer.address}" required="true" requiredMessage="Put in some stuff!" title="Address" />
+                    <h:message for="address"/>
+                    <h:outputLabel value="Email:" for="email" />
+                    <h:inputText id="email" value="#{createAccount.customer.email}" required="true" requiredMessage="Put in some stuff!" title="Email" />
+                    <h:message for="email"/>
+                </h:panelGrid>
+                <h:commandButton action="#{createAccount.create}" value="Create" />
+            </h:form>
+        </f:view>
+
+
+
+    </ui:define>
+</ui:composition>

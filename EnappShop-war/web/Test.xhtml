@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/templates/tie.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <f:metadata>
+        <f:viewParam name="test" value="#{customer.test}" />
+    </f:metadata>
+
+    <ui:define name="pageTitle">Test</ui:define>
+    <ui:define name="content">
+
+        <h:outputText value="#{customer.test}"/>
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/resources/templates/tie.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="pageTitle">Previous purchases</ui:define>
+    <ui:define name="content">
+        <f:view>
+            <h:form rendered="#{customer.loggedIn}" styleClass="hor-minimalist-a">
+                <h:dataTable value="#{customer.purchases}" var="item">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputLink value="PurchaseDetails.xhtml?id=#{item.id}">
+                            <h:outputText value="#{item.id}"/>
+                        </h:outputLink>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Datetime"/>
+                        </f:facet>
+                        <h:outputText value="#{item.datetime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Status"/>
+                        </f:facet>
+                        <h:outputText value="#{item.status}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Details"/>
+                        </f:facet>
+                        <div class="buttons">
+                            <h:outputLink value="PurchaseDetails.xhtml?id=#{item.id}">
+                                <h:outputText value="Get Details"/>
+                            </h:outputLink>
+                        </div>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </f:view>
+
+    </ui:define>
+</ui:composition>

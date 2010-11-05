@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="Main.xhtml" x="40" y="358" zoom="true"/>
+        <Node id="Default.html" x="113" y="78" zoom="true"/>
+        <Node id="Test.xhtml" x="639" y="160" zoom="true"/>
+        <Node id="ThankYou.xhtml" x="835" y="155" zoom="true"/>
+        <Node id="CreateAccount.xhtml" x="24" y="211" zoom="true"/>
+        <Node id="resources/templates/tie.xhtml" x="744" y="385" zoom="true"/>
+        <Node id="CustomerList.xhtml" x="324" y="26" zoom="true"/>
+        <Node id="PurchaseDetails.xhtml" x="413" y="399" zoom="true"/>
+        <Node id="ContactUs.xhtml" x="376" y="315" zoom="true"/>
+        <Node id="CustomerDetails.xhtml" x="342" y="198" zoom="true"/>
+        <Node id="ProductList.xhtml" x="127" y="397" zoom="true"/>
+        <Node id="ListPurchases.xhtml" x="736" y="83" zoom="true"/>
+        <Node id="Checkout.xhtml" x="890" y="260" zoom="true"/>
+        <Node id="resources/templates/template.xhtml" x="695" y="324" zoom="true"/>
+        <Node id="Login.xhtml" x="150" y="150" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>
