@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package ch.hslu.enappwebshop.entities;
 
 import java.io.Serializable;
@@ -13,13 +18,14 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Martin Zimmermann
+ * @author zimmbi
  */
 @Entity
 @Table(name = "product")
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
     @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
+    @NamedQuery(name = "Product.findByReference", query = "SELECT p FROM Product p WHERE p.reference = :reference"),
     @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name"),
     @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description"),
     @NamedQuery(name = "Product.findByMediapath", query = "SELECT p FROM Product p WHERE p.mediapath = :mediapath"),
@@ -31,10 +37,12 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
+    @Column(name = "reference", length = 45)
+    private String reference;
     @Basic(optional = false)
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @Column(name = "description", length = 45)
+    @Column(name = "description", length = 255)
     private String description;
     @Column(name = "mediapath", length = 180)
     private String mediapath;
@@ -59,6 +67,14 @@ public class Product implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public String getName() {

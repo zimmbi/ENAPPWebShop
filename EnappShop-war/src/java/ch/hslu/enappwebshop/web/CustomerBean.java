@@ -111,4 +111,9 @@ public class CustomerBean implements Serializable {
     public Customer getLoggedInCustomer() {
         return login.getCustomer();
     }
+
+    public float fetchTotal(int id) {
+        return customerSession.getTotal(id);
+    }
+
 }

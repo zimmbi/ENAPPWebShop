@@ -8,17 +8,23 @@
 
     <f:metadata>
         <f:viewParam name="id" value="#{customer.purchaseId}"/>
-   </f:metadata>
-    
+    </f:metadata>
+
     <ui:define name="content">
         <f:view>
             <h:form styleClass="hor-minimalist-a">
                 <h:dataTable value="#{customer.purchaseItems}" var="item">
+                    <!--                    <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Quantity"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.quantity}"/>
+                                        </h:column>-->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Quantity"/>
+                            <h:outputText value="Description"/>
                         </f:facet>
-                        <h:outputText value="#{item.quantity}"/>
+                        <h:outputText value="#{item.description}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
@@ -26,19 +32,15 @@
                         </f:facet>
                         <h:outputText value="#{item.unitprice}"/>
                     </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Lineamount"/>
-                        </f:facet>
-                        <h:outputText value="#{item.lineamount}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Description"/>
-                        </f:facet>
-                        <h:outputText value="#{item.description}"/>
-                    </h:column>
+                    <!--                    <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Lineamount"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.lineamount}"/>
+                                        </h:column>-->
+
                 </h:dataTable>
+                <h:outputText value="#{customer.fetchTotal(customer.purchaseId)}"/>
             </h:form>
         </f:view>
 

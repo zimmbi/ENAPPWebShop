@@ -91,6 +91,10 @@ public class ProductBean implements Serializable {
         productSession.decrease(product);
     }
 
+    public Product fetchProduct(Integer id) {
+        return productSession.getProduct(id);
+    }
+
 
     
 }
