@@ -11,7 +11,10 @@
     <ui:define name="pageTitle">Test</ui:define>
     <ui:define name="content">
 
-        <h:outputText value="#{customer.test}"/>
+        <h:form>
+            <h:commandButton value="Make Payment" action="#{customer.testPayment}"/>
+            <h:commandLink value="Make Payment" action="#{customer.testPayment}" />
+        </h:form>
 
     </ui:define>
 </ui:composition>
