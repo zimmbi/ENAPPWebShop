@@ -18,7 +18,8 @@ import javax.jms.ObjectMessage;
  */
 @MessageDriven(mappedName = "jms/enappreplyqueue", activationConfig = {
     @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
-    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
+    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+    @ActivationConfigProperty(propertyName = "adressList", propertyValue = "mq://10.29.2.50:7676/jms")
 })
 public class SalesOrderConsumer implements MessageListener {
 

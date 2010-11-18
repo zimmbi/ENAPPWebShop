@@ -26,15 +26,15 @@ import javax.xml.bind.Unmarshaller;
  * @author zimmbi
  */
 @Stateless
-public class PostFinanceTestBean {
+public class PostFinanceBean {
 
-    public void makePayment(Integer id, long totalPrice, CreditCard creditCard) {
+    public NcResponse makePayment(Integer id, long totalPrice, CreditCard creditCard) {
 
         String orderID = Integer.toString(id);
         String amount = Long.toString(totalPrice * 100);
         String currency = "CHF";
 
-        String stringToHash = orderID + amount + currency + creditCard + Util.PSPID + Util.SHA1PWDIN;
+        String stringToHash = orderID + amount + currency + creditCard.getCardNo() + Util.PSPID + Util.SHA1PWDIN;
         try {
             String encoded = Util.createSHA1(stringToHash);
             MultivaluedMap formData = new MultivaluedMapImpl();
@@ -45,32 +45,35 @@ public class PostFinanceTestBean {
             formData.add("amount", amount);
             formData.add("currency", currency);
             formData.add("CARDNO", creditCard.getCardNo());
+            formData.add("CVC", creditCard.getCvc());
             formData.add("ED", creditCard.getExpiryDate());
             formData.add("CN", creditCard.getCustomerName());
-            formData.add("operation", "SAL");
+//            formData.add("operation", "SAL");
             formData.add("SHASign", encoded);
 
             Client client = Client.create();
 
             WebResource webResource = client.resource("https://e-payment.postfinance.ch/ncol/test/orderdirect.asp");
             ClientResponse response = webResource.type("application/x-www-form-urlencoded").post(ClientResponse.class, formData);
-            System.out.println(response);
 
             JAXBContext jc = JAXBContext.newInstance(ch.hslu.enappwebshop.payment.NcResponse.class);
             Unmarshaller u = jc.createUnmarshaller();
             NcResponse ncResponse = (NcResponse) u.unmarshal(response.getEntityInputStream());
             
             System.out.println(ncResponse);
-            System.out.println(ncResponse.getOrderID());
+
+            return ncResponse;
 
 
         } catch (JAXBException ex) {
-            Logger.getLogger(PostFinanceTestBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PostFinanceBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(PostFinanceTestBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PostFinanceBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(PostFinanceTestBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PostFinanceBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        return null;
 
 
 
