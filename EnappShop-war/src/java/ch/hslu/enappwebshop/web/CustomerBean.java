@@ -5,9 +5,11 @@
 package ch.hslu.enappwebshop.web;
 
 import ch.hslu.enappwebshop.ejb.CustomerSessionLocal;
+import ch.hslu.enappwebshop.ejb.PostFinanceTestBean;
 import ch.hslu.enappwebshop.entities.Customer;
 import ch.hslu.enappwebshop.entities.Purchase;
 import ch.hslu.enappwebshop.entities.Purchaseitem;
+import ch.hslu.enappwebshop.payment.CreditCard;
 import java.io.Serializable;
 import java.util.List;
 
@@ -28,6 +30,8 @@ public class CustomerBean implements Serializable {
 
     @EJB
     private CustomerSessionLocal customerSession;
+    @EJB
+    private PostFinanceTestBean postFinanceTestBean;
     private Login login = new Login();
     private String test;
     private int purchaseId;
@@ -114,6 +118,16 @@ public class CustomerBean implements Serializable {
 
     public float fetchTotal(int id) {
         return customerSession.getTotal(id);
+    }
+
+    public String testPayment() {
+        CreditCard c = new CreditCard();
+        c.setCardNo("234234234");
+        c.setCustomerName("martin");
+        c.setCvc("123");
+        c.setExpiryDate("22-02-2012");
+        postFinanceTestBean.makePayment(313371234, 20, c);
+        return "Test?faces-redirect=true";
     }
 
 }
