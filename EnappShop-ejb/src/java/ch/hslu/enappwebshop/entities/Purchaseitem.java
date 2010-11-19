@@ -147,4 +147,5 @@ public class Purchaseitem implements Serializable {
         return "ch.hslu.enappwebshop.entities.Purchaseitem[id=" + id + "]";
     }
 
+
 }

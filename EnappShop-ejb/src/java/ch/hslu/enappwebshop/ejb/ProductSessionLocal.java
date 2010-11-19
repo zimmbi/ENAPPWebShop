@@ -40,7 +40,5 @@ public interface ProductSessionLocal {
     public void increase(Product product);
 
     public void decrease(Product product);
-
-    
     
 }

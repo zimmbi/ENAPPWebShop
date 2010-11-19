@@ -3,6 +3,7 @@ package ch.hslu.enappwebshop.ejb;
 import ch.hslu.enappwebshop.entities.Customer;
 import ch.hslu.enappwebshop.entities.Purchase;
 import ch.hslu.enappwebshop.entities.Purchaseitem;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -18,7 +19,7 @@ public class CustomerSession implements CustomerSessionLocal {
 
     @PersistenceContext(unitName = "EnappShop-ejbPU")
     private EntityManager em;
-    
+
     @Override
     public void persist(Object object) {
         em.persist(object);
@@ -64,6 +65,11 @@ public class CustomerSession implements CustomerSessionLocal {
         List<Customer> list = q.getResultList();
         return list.isEmpty() ? null : list.get(0);
     }
-    
-    
+
+    @Override
+    public float getTotal(int purchaseId) {
+        Query q = em.createNativeQuery("SELECT sum(unitprice * quantity) as total FROM purchaseitem where purchaseid = " + purchaseId);
+        BigDecimal count = (BigDecimal) q.getSingleResult();
+        return new Float(count.floatValue());
+    }
 }
