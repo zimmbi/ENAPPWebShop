@@ -24,6 +24,7 @@ import javax.jms.ObjectMessage;
 public class SalesOrderConsumer implements MessageListener {
 
 
+    @Override
     public void onMessage(Message message)
     {
         try {

@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -89,7 +88,6 @@ public class ProductSession implements ProductSessionLocal {
 
     @Override
     public void checkout(Customer customer) {
-
         long total = 0;
         SalesOrderJMS sojms = new SalesOrderJMS();
 
@@ -103,7 +101,10 @@ public class ProductSession implements ProductSessionLocal {
 
         for (Purchaseitem pi : cart.values()) {
 
-            SalesOrderJMS.PurchaseItem item = sojms.new PurchaseItem(null, pi.getDescription(), pi.getQuantity().toString(), String.valueOf(pi.getUnitprice() * pi.getQuantity()));
+            Query q = em.createNamedQuery("Product.findById");
+            q.setParameter("id", pi.getProductid());
+            Product p = (Product) q.getSingleResult();
+            SalesOrderJMS.PurchaseItem item = sojms.new PurchaseItem(p.getReference(), pi.getDescription(), pi.getQuantity().toString(), String.valueOf(pi.getUnitprice() * pi.getQuantity()));
             sojmsItems.add(item);
 
             total += pi.getUnitprice() * pi.getQuantity();
@@ -117,12 +118,10 @@ public class ProductSession implements ProductSessionLocal {
         c.setCvc("123");
         c.setExpiryDate("12/12");
 
-
         System.out.println("ID" + purchase.getId());
         System.out.println("TOTAL" + total);
         System.out.println("CC" + c);
         NcResponse response = postFinanceTestBean.makePayment(purchase.getId(), total, c);
-
 
         SalesOrderJMS.PurchaseCustomer purchaseCustomer = sojms.new PurchaseCustomer(null, customer.getName(), customer.getAddress(), "1234", "Luzern", customer.getId().toString(), customer.getUsername());
 
@@ -135,8 +134,18 @@ public class ProductSession implements ProductSessionLocal {
         sojms.setTotalPrice(String.valueOf(total));
 
 
-        salesOrderMessage.salesOrderMessageSender(sojms);
+        System.out.println("PayID: " + sojms.getPayId());
+        System.out.println("Purchase Customer: " + sojms.getPurchaseCustomer());
+        System.out.println("Purchase Date: " + sojms.getPurchaseDate());
+        System.out.println("Purchase ID: " + sojms.getPurchaseId());
+        System.out.println("Purchase Item List: " + sojms.getPurchaseItemList());
+        System.out.println("Student: " + sojms.getStudent());
+        System.out.println("Total Price: " + sojms.getTotalPrice());
 
+
+        String correlationId = salesOrderMessage.salesOrderMessageSender(sojms);
+        purchase.setCorrelationId(correlationId);
+        em.merge(purchase);
 
         purchase = new Purchase();
         cart.clear();
