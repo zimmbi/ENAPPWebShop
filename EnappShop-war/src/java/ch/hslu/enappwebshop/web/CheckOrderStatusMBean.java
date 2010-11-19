@@ -26,6 +26,11 @@ public class CheckOrderStatusMBean {
         }
 
         String status = checkOrderStatusBean.getStatus(correlationId);
+
+        if (status == null) {
+            return "unknown";
+        }
+
         int postfinance = Integer.valueOf(status.substring(0, 1));
         int orderstatus = Integer.valueOf(status.substring(2, 3));
 

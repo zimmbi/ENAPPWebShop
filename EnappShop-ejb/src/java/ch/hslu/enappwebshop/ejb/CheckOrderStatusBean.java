@@ -31,6 +31,11 @@ public class CheckOrderStatusBean {
         WebResource resource = client.resource("http://enappsrv01.icompany.intern:8080/DynNAVdaemon-war/resources/salesorder/" + correlationId + "/status");
         ClientResponse response = resource.type("application/x-www-form-urlencoded ").get(ClientResponse.class);
 
+        if(200 != response.getStatus()) {
+            System.out.println("Error get Status via REST! VIA REST!!! VIA REST!!!");
+            return null;
+        }
+
         try {
             JAXBContext context = JAXBContext.newInstance(SalesOrderRestful.class);
             Unmarshaller u = context.createUnmarshaller();
