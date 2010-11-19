@@ -5,11 +5,13 @@
 package ch.hslu.enappwebshop.web;
 
 import ch.hslu.enappwebshop.ejb.CustomerSessionLocal;
-import ch.hslu.enappwebshop.ejb.PostFinanceTestBean;
+import ch.hslu.enappwebshop.ejb.PostFinanceBean;
 import ch.hslu.enappwebshop.entities.Customer;
 import ch.hslu.enappwebshop.entities.Purchase;
 import ch.hslu.enappwebshop.entities.Purchaseitem;
+import ch.hslu.enappwebshop.mdb.SalesOrderMessage;
 import ch.hslu.enappwebshop.payment.CreditCard;
+import ch.hslu.enappwebshop.payment.NcResponse;
 import java.io.Serializable;
 import java.util.List;
 
@@ -31,7 +33,9 @@ public class CustomerBean implements Serializable {
     @EJB
     private CustomerSessionLocal customerSession;
     @EJB
-    private PostFinanceTestBean postFinanceTestBean;
+    private PostFinanceBean postFinanceTestBean;
+    @EJB
+    private SalesOrderMessage salesOrderMessage;
     private Login login = new Login();
     private String test;
     private int purchaseId;
@@ -121,12 +125,14 @@ public class CustomerBean implements Serializable {
     }
 
     public String testPayment() {
-        CreditCard c = new CreditCard();
-        c.setCardNo("234234234");
-        c.setCustomerName("martin");
-        c.setCvc("123");
-        c.setExpiryDate("22-02-2012");
-        postFinanceTestBean.makePayment(313371234, 20, c);
+//        CreditCard c = new CreditCard();
+//        c.setCardNo("4111111111111111");
+//        c.setCustomerName("martin");
+//        c.setCvc("123");
+//        c.setExpiryDate("12/12");
+//        NcResponse response = postFinanceTestBean.makePayment(313371234, 20, c);
+//
+        
         return "Test?faces-redirect=true";
     }
 
