@@ -79,7 +79,13 @@ public class ProductBean implements Serializable {
     }
 
     public String checkout() {
-        productSession.checkout(customer.getLogin().getCustomer());
+
+
+        // TODO
+
+//        productSession.checkout(customer.getLogin().getCustomer());
+
+        
         return "THANKS";
     }
 

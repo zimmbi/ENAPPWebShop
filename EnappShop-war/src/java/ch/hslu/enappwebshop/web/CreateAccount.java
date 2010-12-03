@@ -49,7 +49,11 @@ public class CreateAccount implements Serializable {
 
     public String create() {
         customer = customerSession.saveCustomer(customer);
-        customerBean.getLogin().setCustomer(customer);
+
+        // TODO
+
+
+//        customerBean.getLogin().setCustomer(customer);
         return "CREATED";
     }
 

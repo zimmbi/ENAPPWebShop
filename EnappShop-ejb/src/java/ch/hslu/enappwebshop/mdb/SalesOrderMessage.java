@@ -5,18 +5,11 @@
 package ch.hslu.enappwebshop.mdb;
 
 import ch.hslu.d3s.enapp.common.SalesOrderJMS;
-import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jms.DeliveryMode;
-import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
