@@ -4,10 +4,15 @@
  */
 package ch.hslu.enappwebshop.web;
 
+import ch.hslu.d3s.enapp.common.Util;
+import ch.hslu.enappwebshop.ejb.CustomerSessionLocal;
 import ch.hslu.enappwebshop.entities.Customer;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -26,6 +31,8 @@ public class Login implements Serializable {
     private String username;
     private String password;
     private Customer customer;
+    @EJB
+    private CustomerSessionLocal customerSession;
 
     public Customer getCustomer() {
         return customer;
@@ -53,11 +60,19 @@ public class Login implements Serializable {
 
     public String login() {
         FacesContext context = FacesContext.getCurrentInstance();
+
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+
         try {
-            request.login(this.username, this.password);
+            request.login(username, password);
             System.out.println("logged in " + username);
-//            this.loggedInCustomer = customerEJB.find(this.username, this.password);
+            try {
+                customer = customerSession.verifyLogin(username, Util.createSHA1(password));
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
             context.addMessage(null, new FacesMessage("Login successful!"));
 
             return "ProductList?faces-redirect=true";
@@ -68,8 +83,24 @@ public class Login implements Serializable {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
             // Handle unknown username/password in request.login().
+            System.out.println("EXCEPTION: " + e.getMessage());
             context.addMessage(null, new FacesMessage("Unknown login"));
         }
         return null;
+    }
+
+    public boolean isLoggedIn() {
+        return customer == null ? false : true;
+    }
+
+    public void logout() {
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+            request.logout();
+            customer = null;
+        } catch (ServletException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

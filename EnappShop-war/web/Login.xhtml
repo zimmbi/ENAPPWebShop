@@ -7,33 +7,33 @@
 
     <ui:define name="pageTitle">Login</ui:define>
     <ui:define name="subMenu">
-        <c:if test="#{!customer.loggedIn}">
+        <c:if test="#{!loginBean.loggedIn}">
             <a href="Login.xhtml">Login</a> | <a href="CreateAccount.xhtml">Create Account</a>
         </c:if>
-        <c:if test="#{customer.loggedIn}">
+        <c:if test="#{loginBean.loggedIn}">
             <h:form>
-                <h:commandLink action="#{customer.logout}" value="Logout"/> | <a href="ListPurchases.xhtml">Show previous purchases</a>
+                <h:commandLink action="#{loginBean.logout}" value="Logout"/> | <a href="ListPurchases.xhtml">Show previous purchases</a>
             </h:form>
         </c:if>
     </ui:define>
     <ui:define name="content">
         <f:view>
-            <h:form id="login" rendered="#{!customer.loggedIn}" styleClass="hor-minimalist-a">
+            <h:form id="login" rendered="#{!loginBean.loggedIn}" styleClass="hor-minimalist-a">
                 <h:message styleClass="msgStyle" for="username"/>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Username:"/>
-                    <h:inputText id="username" value="#{customer.login.username}"/>
+                    <h:inputText id="username" value="#{loginBean.username}"/>
                     <h:outputLabel value="Password:"/>
-                    <h:inputSecret value="#{customer.login.password}"/>
+                    <h:inputSecret value="#{loginBean.password}"/>
                     <h:outputText/>
                 </h:panelGrid>
                 <div class="buttons">
-                    <h:commandButton action="#{customer.login}" value="Login"/>
+                    <h:commandButton action="#{loginBean.login}" value="Login"/>
                 </div>
             </h:form>
         </f:view>
 
-        <c:if test="#{customer.loggedIn}">
+        <c:if test="#{loginBean.loggedIn}">
             <f:view>
                 <h:form id="edit" styleClass="hor-minimalist-a">
                     <h:panelGrid columns="3">

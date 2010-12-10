@@ -42,7 +42,7 @@
                     </h:column>
                 </h:dataTable>
 
-                <h:form rendered="#{customer.loggedIn}">
+                <h:form rendered="#{loginBean.loggedIn}">
                     <div class="buttons">
                         <h:commandButton action="#{product.checkout}" value="Yes, looks OK! Buy now!">
                             <f:ajax/>
