@@ -41,7 +41,10 @@
                         <h:inputText readonly="true" id="id" value="#{customer.loggedInCustomer.id}" title="Id" required="true" requiredMessage="The Id field is required."/>
                         <h:outputText/>
                         <h:outputLabel value="Username:" for="username" />
-                        <h:inputText readonly="true" id="username" value="#{customer.loggedInCustomer.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                        <h:inputText readonly="true" id="username" value="#{customer.loggedInCustomer.username}" title="Username" required="true" />
+                        <h:outputText/>
+                        <h:outputLabel value="DynNav ID" for="dynnavid" />
+                        <h:inputText readonly="true" id="dynnavid" value="#{customer.loggedInCustomer.dynnavid}" title="DynNav ID" required="true" />
                         <h:outputText/>
                         <h:outputLabel value="Password:" for="password" />
                         <h:inputSecret id="password" value="#{customer.tempPw}" title="Password" />

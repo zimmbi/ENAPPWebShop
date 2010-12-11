@@ -7,6 +7,7 @@ package ch.hslu.enappwebshop.web;
 import ch.hslu.d3s.enapp.common.Util;
 import ch.hslu.enappwebshop.ejb.CustomerSessionLocal;
 import ch.hslu.enappwebshop.entities.Customer;
+import ch.hslu.enappwebshop.entities.CustomerGroup;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -64,6 +65,9 @@ public class CreateAccount implements Serializable {
             Logger.getLogger(CreateAccount.class.getName()).log(Level.SEVERE, null, ex);
         }
         customer = customerSession.saveCustomer(customer);
+
+        CustomerGroup group = new CustomerGroup(customer.getUsername(), "USER");
+        customerSession.addGroup(group);
 
         login.login();
 

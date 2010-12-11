@@ -26,7 +26,6 @@ public class ProductBean implements Serializable {
     @EJB
     private ProductSessionLocal productSession;
     private Product product;
-
     @Inject
     private CustomerBean customer;
 
@@ -83,9 +82,9 @@ public class ProductBean implements Serializable {
 
         // TODO
 
-//        productSession.checkout(customer.getLogin().getCustomer());
+        productSession.checkout(customer.getLogin().getCustomer());
 
-        
+
         return "THANKS";
     }
 
@@ -100,7 +99,4 @@ public class ProductBean implements Serializable {
     public Product fetchProduct(Integer id) {
         return productSession.getProduct(id);
     }
-
-
-    
 }

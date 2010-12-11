@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ch.hslu.enappwebshop.entities;
 
 import java.io.Serializable;
@@ -13,20 +17,22 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Martin Zimmermann
+ * @author zimmbi
  */
 @Entity
 @Table(name = "customer")
 @NamedQueries({
+    @NamedQuery(name = "Customer.findByUsernameAndPassword", query = "SELECT c FROM Customer c WHERE c.username = :username AND c.password = :password"),
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
     @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
     @NamedQuery(name = "Customer.findByUsername", query = "SELECT c FROM Customer c WHERE c.username = :username"),
-    @NamedQuery(name = "Customer.findByUsernameAndPassword", query = "SELECT c FROM Customer c WHERE c.username = :username AND c.password = :password"),
     @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password"),
     @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name"),
     @NamedQuery(name = "Customer.findByAddress", query = "SELECT c FROM Customer c WHERE c.address = :address"),
-    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")})
+    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
+    @NamedQuery(name = "Customer.findByDynnavid", query = "SELECT c FROM Customer c WHERE c.dynnavid = :dynnavid")})
 public class Customer implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +42,7 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "username", nullable = false, length = 15)
     private String username;
-    @Column(name = "password", length = 32)
+    @Column(name = "password", length = 64)
     private String password;
     @Column(name = "name", length = 45)
     private String name;
@@ -44,6 +50,8 @@ public class Customer implements Serializable {
     private String address;
     @Column(name = "email", length = 90)
     private String email;
+    @Column(name = "dynnavid", length = 45)
+    private String dynnavid;
 
     public Customer() {
     }
@@ -105,6 +113,14 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
+    public String getDynnavid() {
+        return dynnavid;
+    }
+
+    public void setDynnavid(String dynnavid) {
+        this.dynnavid = dynnavid;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -129,7 +145,4 @@ public class Customer implements Serializable {
     public String toString() {
         return "ch.hslu.enappwebshop.entities.Customer[id=" + id + "]";
     }
-
-    
-
 }

@@ -7,10 +7,10 @@
 
     <ui:define name="pageTitle">Create Account</ui:define>
     <ui:define name="subMenu">
-        <c:if test="#{!customer.loggedIn}">
+        <c:if test="#{!loginBean.loggedIn}">
             <a href="Login.xhtml">Login</a> | <a href="CreateAccount.xhtml">Create Account</a>
         </c:if>
-        <c:if test="#{customer.loggedIn}">
+        <c:if test="#{loginBean.loggedIn}">
             <a href="#">Logout</a> | <a href="#">Show previous purchases</a>
         </c:if>
 

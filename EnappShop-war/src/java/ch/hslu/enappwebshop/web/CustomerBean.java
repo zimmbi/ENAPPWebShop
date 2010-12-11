@@ -80,7 +80,6 @@ public class CustomerBean implements Serializable {
 //        return "Login?faces-redirect=true";
 //    }
 //
-
     public String saveCustomer() {
         if (tempPw.length() > 0) {
             try {
@@ -96,6 +95,7 @@ public class CustomerBean implements Serializable {
 //        return "Login?faces-redirect=true";
         return null;
     }
+
     public List<Customer> getCustomers() {
         return customerSession.getCustomers();
     }
@@ -134,6 +134,4 @@ public class CustomerBean implements Serializable {
     public void setLogin(Login login) {
         this.login = login;
     }
-
-    
 }

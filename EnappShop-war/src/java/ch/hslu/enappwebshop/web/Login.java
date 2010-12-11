@@ -93,7 +93,7 @@ public class Login implements Serializable {
         return customer == null ? false : true;
     }
 
-    public void logout() {
+    public String logout() {
         try {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
@@ -102,5 +102,6 @@ public class Login implements Serializable {
         } catch (ServletException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return "Main?faces-redirect=true";
     }
 }

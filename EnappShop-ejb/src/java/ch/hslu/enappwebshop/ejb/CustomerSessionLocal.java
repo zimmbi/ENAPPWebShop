@@ -5,6 +5,7 @@
 package ch.hslu.enappwebshop.ejb;
 
 import ch.hslu.enappwebshop.entities.Customer;
+import ch.hslu.enappwebshop.entities.CustomerGroup;
 import ch.hslu.enappwebshop.entities.Purchase;
 import ch.hslu.enappwebshop.entities.Purchaseitem;
 import java.util.List;
@@ -32,4 +33,6 @@ public interface CustomerSessionLocal {
     public Customer verifyLogin(String username, String password);
 
     public float getTotal(int purchaseId);
+
+    public void addGroup(CustomerGroup group);
 }

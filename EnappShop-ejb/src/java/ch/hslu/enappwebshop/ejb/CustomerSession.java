@@ -1,6 +1,7 @@
 package ch.hslu.enappwebshop.ejb;
 
 import ch.hslu.enappwebshop.entities.Customer;
+import ch.hslu.enappwebshop.entities.CustomerGroup;
 import ch.hslu.enappwebshop.entities.Purchase;
 import ch.hslu.enappwebshop.entities.Purchaseitem;
 import java.math.BigDecimal;
@@ -71,5 +72,10 @@ public class CustomerSession implements CustomerSessionLocal {
         Query q = em.createNativeQuery("SELECT sum(unitprice * quantity) as total FROM purchaseitem where purchaseid = " + purchaseId);
         BigDecimal count = (BigDecimal) q.getSingleResult();
         return new Float(count.floatValue());
+    }
+
+    @Override
+    public void addGroup(CustomerGroup group) {
+        em.merge(group);
     }
 }
